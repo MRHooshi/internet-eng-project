@@ -29,3 +29,19 @@ const UserSchema = new mongoose.Schema({
         default: Date.now
     }  
 })
+
+UserSchema.methods = {
+    encryption: function(password) {
+     
+    },
+
+    authenticate: function(text) {
+        return this.encryption(text) === this.hashed_password
+    },
+
+    makeSalt: function() {
+        return new Date().valueOf()
+    }
+}
+
+module.exports = mongoose.model('User', UserSchema)
