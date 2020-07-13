@@ -1,0 +1,22 @@
+{
+  "name": "internet-eng-project",
+  "version": "1.0.0",
+  "description": "The final Project for InternetEng course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MRHooshi/internet-eng-project.git"
+  },
+  "author": "Mohammad Reza Hooshangi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MRHooshi/internet-eng-project/issues"
+  },
+  "homepage": "https://github.com/MRHooshi/internet-eng-project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
