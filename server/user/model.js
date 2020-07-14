@@ -27,12 +27,18 @@ const UserSchema = new mongoose.Schema({
     created_at: {
         type: Date,
         default: Date.now
+    },
+
+    type: {
+        type: String,
+        enum: ['Admin', 'ControlAgent', 'FieldAgent'],
+        default: 'FieldAgent'
     }
 })
 
 UserSchema.methods = {
     encryption: function (password) {
-
+        return password + this.salt
     },
 
     authenticate: function (text) {
@@ -49,7 +55,7 @@ UserSchema
     .set(function (password) {
         this._password = password
         this.salt = this.makeSalt()
-        this.hashed_password = this.encryptPassword(password)
+        this.hashed_password = this.encryption(password)
     })
     .get(function () {
         return this._password
