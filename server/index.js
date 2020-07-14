@@ -1,3 +1,4 @@
 const app = require('./express')
+const config = require('../config/config')
 
-app.listen(3000,() => console.log('listen on port ' + 3000))
+app.listen(config.port,() => console.log('listen on port ' + config.port))
