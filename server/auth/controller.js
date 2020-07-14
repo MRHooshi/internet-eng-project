@@ -38,6 +38,7 @@ const login = async (req, res) => {
         })
 
     }
+<<<<<<< HEAD
 }
 
 //middleware for auth
@@ -49,4 +50,6 @@ const loginRequired = expressJwt({
 module.exports = {
     login,
     loginRequired
+=======
+>>>>>>> authApp
 }
