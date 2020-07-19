@@ -9,7 +9,7 @@ const connectDB = () => {
             useUnifiedTopology: true
         })
 
-        console.log('MongoDB connected');
+        console.log('MongoDB connected:');
     } catch(error){
         console.log(error)
         process.exit(1)

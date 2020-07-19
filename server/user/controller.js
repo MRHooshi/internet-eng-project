@@ -9,6 +9,7 @@ const register = async (req, res) => {
         })
     } catch (err) {
         //return error message
+        console.log(err)
     }
 }
 

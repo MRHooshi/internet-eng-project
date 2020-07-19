@@ -1,6 +1,7 @@
 const User = require('../user/model')
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
+const config = require('../../config/config');
 
 const login = async (req, res) => {
     try {
@@ -38,18 +39,16 @@ const login = async (req, res) => {
         })
 
     }
-<<<<<<< HEAD
 }
 
 //middleware for auth
 const loginRequired = expressJwt({
     secret: config.jwtSecret,
+    algorithms: ['RS256'],
     userProperty: 'auth'
 })
 
 module.exports = {
     login,
     loginRequired
-=======
->>>>>>> authApp
 }
