@@ -26,7 +26,7 @@ const isAdmin = (req , res , next) => {
 const isControlAgent = (req , res , next) => {
     if (!req.user.type === "ControlAgent")
         return res.status(403).json({
-            error : "User is not an ControlAgent"
+            error : "User is not a ControlAgent"
         })
     next()
 }
@@ -35,7 +35,7 @@ const isControlAgent = (req , res , next) => {
 const isFieldAgent = (req , res , next) => {
     if (!req.user.type === "FieldAgent")
         return res.status(403).json({
-            error : "User is not an FieldAgent"
+            error : "User is not a FieldAgent"
         })
     next()
 }
