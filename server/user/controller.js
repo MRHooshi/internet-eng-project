@@ -13,6 +13,36 @@ const register = async (req, res) => {
     }
 }
 
+//check user is Admin
+const isAdmin = (req , res , next) => {
+    if (!req.user.type === "Admin")
+        return res.status(403).json({
+            error : "User is not an Admin"
+        })
+    next()
+}
+
+//check user is Control Agent
+const isControlAgent = (req , res , next) => {
+    if (!req.user.type === "ControlAgent")
+        return res.status(403).json({
+            error : "User is not an ControlAgent"
+        })
+    next()
+}
+
+//check user is Field Agent
+const isFieldAgent = (req , res , next) => {
+    if (!req.user.type === "FieldAgent")
+        return res.status(403).json({
+            error : "User is not an FieldAgent"
+        })
+    next()
+}
+
 module.exports={
-    register    
+    register,
+    isAdmin,
+    isControlAgent,
+    isFieldAgent    
 }

@@ -18,6 +18,4 @@ app.use('/users', userRoute)
 
 app.use('/auth', authRoute)
 
-app.post('/user' , (req,res) =>  res.send(req.body))
-
 module.exports = app
