@@ -5,6 +5,7 @@ const userRoute = require('./user/routes')
 const authRoute = require('./auth/routes')
 const areaRoute = require('./area/routes')
 const formRoute = require('./form/routes')
+const answerRoute = require('./formAnswer/routes')
 const userController = require('./user/controller')
 const authController = require('./auth/controller')
 const { hasAuthorization } = require('./auth/controller')
@@ -27,5 +28,8 @@ app.use('/auth', authRoute)
 app.use('/areas',userController.isAdmin , areaRoute)
 
 app.use('/forms', hasAuthorization ,formRoute)
+
+app.use('/answers', answerRoute)
+
 
 module.exports = app
