@@ -24,7 +24,7 @@ const FormSchema = new mongoose.Schema({
             },
             required:{
                 type: Boolean,
-                required: true
+                default: false
             },
             options : {
                 type: [{

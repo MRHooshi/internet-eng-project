@@ -58,8 +58,19 @@ const loginRequiredError = (err, req, res, next) => {
     }
 }
 
+const hasAuthorization = (req, res, next) => {
+    const authorized = req.auth
+    if (!(authorized)) {
+      return res.status('403').json({
+        error: "User is not authorized"
+      })
+    }
+    next()
+  }
+
 module.exports = {
     login,
     loginRequired,
-    loginRequiredError
+    loginRequiredError,
+    hasAuthorization
 }
