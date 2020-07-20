@@ -4,7 +4,7 @@ const connectDB = require('../config/db')
 const userRoute = require('./user/routes')
 const authRoute = require('./auth/routes')
 const areaRoute = require('./area/routes')
-
+const formRoute = require('./form/controller')
 const userController = require('./user/controller')
 const authController = require('./auth/controller')
 //Connect to the DB
@@ -24,5 +24,7 @@ app.use('/users', userRoute)
 app.use('/auth', authRoute)
 
 app.use('/areas',userController.isAdmin , areaRoute)
+
+app.use('/forms', formRoute)
 
 module.exports = app
