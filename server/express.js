@@ -16,7 +16,7 @@ const app = express()
 //middleware
 app.use(bodyParser.json());
 
-app.use(authController.loginRequired.unless({path: ['/auth/login']}) , authController.loginRequiredError);
+app.use(authController.loginRequired.unless({path: ['/auth/login' , '/users']}) , authController.loginRequiredError);
 
 //Routes endpoints
 app.use('/users', userRoute)
