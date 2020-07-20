@@ -9,7 +9,9 @@ const register = async (req, res) => {
         })
     } catch (err) {
         //return error message
-        console.log(err)
+        res.status(400).json({
+            error: "Username already exists"
+        })
     }
 }
 
