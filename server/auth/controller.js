@@ -21,8 +21,8 @@ const login = async (req, res) => {
 
         const token = jwt.sign({
             _id: user._id
-        }, config.jwtSecret)
-
+        }, config.jwtSecret, { expiresIn: 18000 })
+        
         return res.json({
             token: token,
             user: {
@@ -45,11 +45,21 @@ const login = async (req, res) => {
 //middleware for auth
 const loginRequired = expressJwt({
     secret: config.jwtSecret,
-    algorithms: ['RS256'],
-    userProperty: 'auth'
+    algorithms: ['HS256'],
+    userProperty: 'auth',
+    credentialsRequired: false
 })
+
+const loginRequiredError = (err, req, res, next) => {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401).json({
+          error: err
+      });
+    }
+}
 
 module.exports = {
     login,
-    loginRequired
+    loginRequired,
+    loginRequiredError
 }
