@@ -59,7 +59,7 @@ const get = async (req , res) => {
         res.json(area)
     } catch (err) {
         return res.status(400).json({
-            error: "Update failed"
+            error: err
         })
       }  
 }
