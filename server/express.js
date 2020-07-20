@@ -25,11 +25,11 @@ app.use('/users', userRoute)
 
 app.use('/auth', authRoute)
 
-app.use('/areas',userController.isAdmin , areaRoute)
+app.use('/areas',hasAuthorization,userController.isAdmin , areaRoute)
 
 app.use('/forms', hasAuthorization ,formRoute)
 
-app.use('/answers', answerRoute)
+app.use('/answers',hasAuthorization, answerRoute)
 
 
 module.exports = app

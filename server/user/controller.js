@@ -17,7 +17,7 @@ const register = async (req, res) => {
 
 //check user is Admin
 const isAdmin = (req , res , next) => {
-    if (!req.auth || !req.auth.type === "Admin")
+    if (!req.auth.type === "Admin")
         return res.status(403).json({
             error : "User is not an Admin"
         })
@@ -26,7 +26,7 @@ const isAdmin = (req , res , next) => {
 
 //check user is Control Agent
 const isControlAgent = (req , res , next) => {
-    if (!req.auth || !req.auth.type === "ControlAgent")
+    if (!req.auth.type === "ControlAgent")
         return res.status(403).json({
             error : "User is not a ControlAgent"
         })
@@ -35,7 +35,7 @@ const isControlAgent = (req , res , next) => {
 
 //check user is Field Agent
 const isFieldAgent = (req , res , next) => {
-    if (!req.auth || !req.auth.type === "FieldAgent")
+    if (!req.auth.type === "FieldAgent")
         return res.status(403).json({
             error : "User is not a FieldAgent"
         })
