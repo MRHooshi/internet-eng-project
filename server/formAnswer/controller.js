@@ -60,7 +60,7 @@ const get = async (req, res) => {
 
 
 const listAnswersByFormId = async (req , res) => {
-    let formId = req.params.formId
+    let formId = req.query.formId
     
     try{
         await Form.findById(formId)
