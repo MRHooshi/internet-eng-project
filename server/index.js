@@ -1,4 +1,9 @@
 const app = require('./express')
 const config = require('../config/config')
 
-app.listen(config.port,() => console.log('listen on port ' + config.port))
+let port = config.port;
+if (port == null || port == "") {
+  port = 8000;
+}
+
+app.listen(config.port,() => console.log('Listening on port ' + config.port))

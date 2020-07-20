@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const connectDB = require('../config/db')
+const config = require('../config/config')
 const userRoute = require('./user/routes')
 const authRoute = require('./auth/routes')
 const areaRoute = require('./area/routes')
@@ -20,12 +21,12 @@ app.use(bodyParser.json());
 app.use(authController.loginRequired.unless({path: ['/auth/login' , '/users']}) , authController.loginRequiredError);
 
 //Routes endpoints
-app.use('/users', userRoute)
+app.use('/api/v1.0.0/user', userRoute)
 
-app.use('/auth', authRoute)
+app.use('/api/v1.0.0/auth', authRoute)
 
-app.use('/areas',userController.isAdmin , areaRoute)
+app.use('/api/v1.0.0/admin/area',userController.isAdmin , areaRoute)
 
-app.use('/forms', hasAuthorization ,formRoute)
+app.use('/api/v1.0.0/admin/form', hasAuthorization ,formRoute)
 
 module.exports = app
