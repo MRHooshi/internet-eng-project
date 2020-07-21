@@ -45,17 +45,6 @@ const get = async (req, res) => {
             error: "Form with given id is not valid"
         })
     }
-    const answer = new FormAnswer(formAnswer)
-    try {
-        await answer.save()
-        return res.status(200).json({
-            message: "FormAnswer Successfully Created"
-        })
-    } catch (err) {
-        return res.status(400).json({
-            error: err.message
-        })
-    }
 }
 
 
@@ -72,6 +61,7 @@ const listAnswersByFormId = async (req , res) => {
 
     try{
         let formAnswers = await FormAnswer.find({formId : formId})
+        
         res.json(formAnswers)
     } catch (err) {
         return res.status(400).json({
