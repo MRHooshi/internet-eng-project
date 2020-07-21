@@ -1,14 +1,22 @@
 const express = require('express');
 const areaController = require('./controller');
+const userController = require('../user/controller')
 
 const router = express.Router()
 
-router.post('/'  ,areaController.isPolygon,areaController.create)
+router.post('/'  ,userController.isAdmin,areaController.isPolygon,areaController.create)
 
 router.get('/' , areaController.list)
 
-router.delete('/' , areaController.remove)
+router.delete('/' , userController.isAdmin,areaController.remove)
 
-router.put('/' , areaController.isPolygon ,areaController.update)
+router.patch('/' ,userController.isAdmin ,areaController.isPolygon ,areaController.update)
+
+router.get('/:lat/:long', areaController.getByCoordiantes)
+
+router.get('/name', areaController.getByName)
+
+
+
 
 module.exports = router

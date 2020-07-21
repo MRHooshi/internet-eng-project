@@ -1,4 +1,7 @@
 const User = require('./model')
+const jwt = require('jsonwebtoken')
+const expressJwt = require('express-jwt')
+const config = require('../../config/config');
 
 const register = async (req, res) => {
     const user = new User(req.body)
@@ -9,13 +12,60 @@ const register = async (req, res) => {
         })
     } catch (err) {
         //return error message
-        console.log(err)
+        res.status(400).json({
+            error: "Username already exists"
+        })
     }
 }
 
+
+const login = async (req, res) => {
+    try {
+        let user = await User.findOne({
+            "username": req.body.username
+        })
+        if (!user)
+            return res.status('401').json({
+                error: "User not found"
+            })
+
+        if (!user.authenticate(req.body.password)) {
+            return res.status('401').send({
+                error: "Username and password don't match."
+            })
+        }
+
+        const token = jwt.sign({
+            _id: user._id
+        }, config.jwtSecret, { expiresIn: 18000 })
+        
+        return res.json({
+            status:"ok",
+            token: token,
+            user: {
+                _id: user._id,
+                name: user.name,
+                username: user.username,
+                type: user.type,
+                email: user.email
+            }
+        })
+
+    } catch (err) {
+
+        return res.status('401').json({
+            error: "Could not login"
+        })
+
+    }
+}
+
+
+
+
 //check user is Admin
 const isAdmin = (req , res , next) => {
-    if (!req.auth || !req.auth.type === "Admin")
+    if (!req.auth.type === "Admin")
         return res.status(403).json({
             error : "User is not an Admin"
         })
@@ -24,7 +74,7 @@ const isAdmin = (req , res , next) => {
 
 //check user is Control Agent
 const isControlAgent = (req , res , next) => {
-    if (!req.auth || !req.auth.type === "ControlAgent")
+    if (!req.auth.type === "ControlAgent")
         return res.status(403).json({
             error : "User is not a ControlAgent"
         })
@@ -33,7 +83,7 @@ const isControlAgent = (req , res , next) => {
 
 //check user is Field Agent
 const isFieldAgent = (req , res , next) => {
-    if (!req.auth || !req.auth.type === "FieldAgent")
+    if (!req.auth.type === "FieldAgent")
         return res.status(403).json({
             error : "User is not a FieldAgent"
         })
@@ -42,6 +92,7 @@ const isFieldAgent = (req , res , next) => {
 
 module.exports={
     register,
+    login,
     isAdmin,
     isControlAgent,
     isFieldAgent    

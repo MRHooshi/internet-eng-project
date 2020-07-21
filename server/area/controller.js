@@ -1,5 +1,6 @@
 const Area = require('./model')
 const geojsonValidation = require('geojson-validation')
+const geolocation = require('geolocation-utils');
 
 const create = async (req, res) => {
     const area = new Area(req.body)
@@ -46,7 +47,7 @@ const remove = async (req , res) => {
       }
 }
 
-const get = async (req , res) => {
+const getByName = async (req , res) => {
     try {
         let areaName = req.query.name
         let area = await Area.findOne({name : areaName})
@@ -84,6 +85,7 @@ const update = async (req , res) => {
         })
       }  
 }
+
 //check right area
 const isPolygon = (req , res , next) => {
     geojsonObject = req.body
@@ -95,14 +97,34 @@ const isPolygon = (req , res , next) => {
     else {
         next()
     }
-    
 }
+
+const getByCoordiantes = async (req, res) => {
+    try{
+        let result = {"areas": []}
+        let lat = req.params.lat
+        let long = req.params.long 
+        await Area.find().cursor().eachAsync(async function(Area) {
+        if (Area.geometry.type === 'Polygon')
+        if (geolocation.insidePolygon([parseFloat(lat), parseFloat(req.params.lخng)], Area.geometry.coordinates[0])) 
+            result.Polygons.push(Area)
+        })
+        res.status(200).send(result)    
+    }catch (err){
+        res.status(400).json({
+            error: "get by coordinates failed"
+        })
+    }
+}
+  
+
 
 module.exports = {
     create,
     list,
     remove,
-    get,
+    getByName,
     update,
     isPolygon,
+    getByCoordiantes
 }

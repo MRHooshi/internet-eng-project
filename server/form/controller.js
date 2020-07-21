@@ -46,7 +46,7 @@ const get = async (req , res) => {
         res.json(form)
     } catch (err) {
         return res.status(400).json({
-            error: err
+            error: err.message
         })
       }  
 }
@@ -54,18 +54,46 @@ const get = async (req , res) => {
 const list = async (req , res) => {
     try {
         let forms = await Form.find().select('_id title')
-        res.json(forms)
+        res.json.status(200)(forms)
 
     } catch (err) {
         return res.status(400).json({
-            error: err
+            error: err.message
         })
       }  
+}
+
+
+const update = async(req , res) => {
+    try{
+        let formId = req.param.id
+        let form = await Form.findOne({_id : formId})
+        if (!form){
+            return res.status('400').json({
+                error : "Form not found"
+            })
+        }
+        if (req.body.title != null) {
+            res.form.title = req.body.title
+        }
+        if (req.body.fields != null) {
+            res.form.fields = req.body.fields
+        }
+        const updatedForm = await res.form.save()
+        res.json(updatedForm)
+    }
+    catch(err) {
+        return res.status(400).json({
+            error: "update failed"
+        })
+    }
+
 }
 
 module.exports = {
     create,
     remove,
     get,
-    list
+    list,
+    update
 }
