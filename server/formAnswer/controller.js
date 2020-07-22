@@ -21,15 +21,38 @@ const create = async (req, res) => {
         let result = []
         
         for await(field of fields){
-            let newRecord = {'name': field.name , 'title':field.title , 'type':field.type ,'value' : {}}
-            let fieldValue = formAnswer[field.name]
-            newRecord.value = fieldValue
 
-            if(newRecord.type === 'Location'){
-                newRecord.value.areas = await areaController.getByCoordiantesFunction(fieldValue.lat , fieldValue.long)
-                
+            if(field.required){
+                if(!formAnswer[field.name]){
+                    res.status(400).json({
+                        "error": field.name + " is required."
+                    })
+                }    
             }
-             result.push(newRecord)
+
+            let newRecord = {'name': field.name , 'title':field.title , 'type':field.type ,'value' : {}}
+            
+            let fieldValue = []
+            if(field.required || formAnswer[field.name]){
+                fieldValue = formAnswer[field.name]
+            
+                newRecord.value = fieldValue
+
+                if(newRecord.type === 'Location'){
+                    newRecord.value.areas = await areaController.getByCoordiantesFunction(fieldValue.lat , fieldValue.long)
+                    
+                }
+                 result.push(newRecord)
+            
+            }
+            
+            // newRecord.value = fieldValue
+
+            // if(newRecord.type === 'Location'){
+            //     newRecord.value.areas = await areaController.getByCoordiantesFunction(fieldValue.lat , fieldValue.long)
+                
+            // }
+            //  result.push(newRecord)
         }
     
     
