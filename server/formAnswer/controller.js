@@ -1,21 +1,45 @@
 const FormAnswer = require('./model')
 const Form = require('../form/model')
 const User = require('../user/model')
+const areaController = require('../area/controller')
 
 const create = async (req, res) => {
     let formAnswer = req.body
     formAnswer['userId'] = req.auth._id
     
     let formId = formAnswer.formId
+    let form;
     try{
-        await Form.findById(formId)
+        form = await Form.findById(formId)
     } catch (err) {
         return res.status(400).json({
             error: "Form with given id is not valid"
         })
     }
-    const answer = new FormAnswer(formAnswer)
     try {
+        let fields = form.fields
+        let result = []
+        
+        for await(field of fields){
+            let newRecord = {'name': field.name , 'title':field.title , 'type':field.type ,'value' : {}}
+            let fieldValue = formAnswer[field.name]
+            newRecord.value = fieldValue
+
+            if(newRecord.type === 'Location'){
+                newRecord.value.areas = await areaController.getByCoordiantesFunction(fieldValue.lat , fieldValue.long)
+                
+            }
+             result.push(newRecord)
+        }
+    
+    
+    console.log(result)
+    const answer = new FormAnswer({
+        'userId':formAnswer.userId,
+        'formId':formAnswer.formId,
+        'values':result
+    })
+    
         await answer.save()
         return res.status(200).json({
             message: "FormAnswer Successfully Created"

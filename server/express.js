@@ -8,6 +8,7 @@ const formRoute = require('./form/routes')
 const answerRoute = require('./formAnswer/routes')
 const userController = require('./user/controller')
 const authController = require('./auth/controller')
+const areaController = require('./area/controller')
 const { hasAuthorization } = require('./auth/controller')
 //Connect to the DB
 connectDB();
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.use(authController.loginRequired.unless({path: ['/auth/login' , '/users']}) , authController.loginRequiredError);
 
 //Routes endpoints
+app.get('/areas/getByPoint' , hasAuthorization , areaController.getByCoordiantes)
+
 app.use('/users', userRoute)
 
 app.use('/auth', authRoute)

@@ -11,7 +11,7 @@ const FormAnswerSchema = new mongoose.Schema({
         ref:'Form',
         required: true,
     },
-    value: Object
+    values: Array
 })
 
 module.exports = mongoose.model('FormAnswer', FormAnswerSchema)

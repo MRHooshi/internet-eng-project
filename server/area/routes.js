@@ -11,4 +11,5 @@ router.delete('/' , areaController.remove)
 
 router.put('/' , areaController.isPolygon ,areaController.update)
 
+
 module.exports = router
