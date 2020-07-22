@@ -62,7 +62,7 @@ const get = async (req, res) => {
         res.json({
             name: owner.name ,
             formTitle : form.title,
-            value : formAnswer.value
+            values : formAnswer.values
         })
     } catch (err) {
         return res.status(400).json({
