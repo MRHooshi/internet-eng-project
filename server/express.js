@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const connectDB = require('../config/db')
 const userRoute = require('./user/routes')
 const authRoute = require('./auth/routes')
@@ -17,8 +18,8 @@ connectDB();
 const app = express()
 
 //middleware
+app.use(cors())
 app.use(bodyParser.json());
-
 app.use(authController.loginRequired.unless({path: ['/auth/login' , '/users']}) , authController.loginRequiredError);
 
 //Routes endpoints
