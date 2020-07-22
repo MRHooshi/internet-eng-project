@@ -21,7 +21,7 @@ const login = async (req, res) => {
 
         const token = jwt.sign({
             _id: user._id
-        }, config.jwtSecret, { expiresIn: 18000 })
+        }, config.jwtSecret, { expiresIn: 180000 })
         
         return res.json({
             token: token,
