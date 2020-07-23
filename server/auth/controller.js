@@ -23,7 +23,6 @@ const login = async (req, res) => {
             _id: user._id
         }, config.jwtSecret, { expiresIn: 180000 })
         
-        req.auth.type = user.type
         return res.json({
             token: token,
             user: {
