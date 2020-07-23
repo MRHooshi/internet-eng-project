@@ -51,7 +51,7 @@ const create = async (req, res) => {
                     {
                         lat:"",
                         long:"",
-                        areas = []
+                        areas : []
                         }
                 }
                 result.push(newRecord)
