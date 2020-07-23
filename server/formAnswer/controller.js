@@ -33,7 +33,7 @@ const create = async (req, res) => {
             let newRecord = {'name': field.name , 'title':field.title , 'type':field.type ,'value' : {}}
             
             let fieldValue = []
-            if(field.required || formAnswer[field.name]){
+            if(formAnswer[field.name]){
                 fieldValue = formAnswer[field.name]
             
                 newRecord.value = fieldValue
@@ -44,6 +44,9 @@ const create = async (req, res) => {
                 }
                  result.push(newRecord)
             
+            }else{
+                newRecord.value = null
+                result.push(newRecord)
             }
             
             // newRecord.value = fieldValue
@@ -56,7 +59,6 @@ const create = async (req, res) => {
         }
     
     
-    console.log(result)
     const answer = new FormAnswer({
         'userId':formAnswer.userId,
         'formId':formAnswer.formId,
