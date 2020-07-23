@@ -16,8 +16,10 @@ const register = async (req, res) => {
 }
 
 //check user is Admin
-const isAdmin = (req , res , next) => {
-    if (!req.auth.type === "Admin")
+const isAdmin = async (req , res , next) => {
+
+    const user = await User.findById({_id:req.auth._id})
+    if (user && user.type !== "Admin")
         return res.status(403).json({
             error : "User is not an Admin"
         })
@@ -25,8 +27,9 @@ const isAdmin = (req , res , next) => {
 }
 
 //check user is Control Agent
-const isControlAgent = (req , res , next) => {
-    if (!req.auth.type === "ControlAgent")
+const isControlAgent = async(req , res , next) => {
+    const user = await User.findById({_id:req.auth._id})
+    if (user && user.type !== "ControlAgent")
         return res.status(403).json({
             error : "User is not a ControlAgent"
         })
@@ -34,8 +37,9 @@ const isControlAgent = (req , res , next) => {
 }
 
 //check user is Field Agent
-const isFieldAgent = (req , res , next) => {
-    if (!req.auth.type === "FieldAgent")
+const isFieldAgent = async(req , res , next) => {
+    const user = await User.findById({_id:req.auth._id})
+    if (user && user.type !== "FieldAgent")
         return res.status(403).json({
             error : "User is not a FieldAgent"
         })
