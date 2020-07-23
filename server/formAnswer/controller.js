@@ -46,6 +46,14 @@ const create = async (req, res) => {
             
             }else{
                 newRecord.value = ""
+                if(newRecord.type === "Location"){
+                    newRecord.value =
+                    {
+                        lat:"",
+                        long:"",
+                        areas = []
+                        }
+                }
                 result.push(newRecord)
             }
             
