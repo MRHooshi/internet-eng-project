@@ -45,7 +45,7 @@ const create = async (req, res) => {
                  result.push(newRecord)
             
             }else{
-                newRecord.value = null
+                newRecord.value = ""
                 result.push(newRecord)
             }
             
