@@ -84,6 +84,7 @@ const update = async (req , res) => {
         })
       }  
 }
+
 //check right area
 const isPolygon = (req , res , next) => {
     geojsonObject = req.body

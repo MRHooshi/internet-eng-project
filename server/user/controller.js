@@ -4,6 +4,7 @@ const register = async (req, res) => {
     const user = new User(req.body)
     try {
         await user.save()
+        await user.generateAuthToken()
         return res.status(200).json({
             message: "Successfully signed up!"
         })

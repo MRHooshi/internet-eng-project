@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-
+const jwt = require('jsonwebtoken')
+const expressJwt = require('express-jwt')
+const config = require('../../config/config');
 const UserSchema = new mongoose.Schema({
 
     name: {
@@ -19,7 +21,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: "Password is required"
     },
-
+    
     salt: String,
 
     updated_at: Date,
@@ -33,7 +35,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['Admin', 'ControlAgent', 'FieldAgent'],
         default: 'FieldAgent'
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 })
 
 UserSchema.methods = {
@@ -47,8 +55,22 @@ UserSchema.methods = {
 
     makeSalt: function () {
         return new Date().valueOf()
+    },
+
+    generateAuthToken : async function(){
+        const user = this
+        const token = jwt.sign({_id: user._id.toString() }, config.jwtSecret)
+        user.tokens = user.tokens.concat({ token })
+        await user.save()    
     }
 }
+// userSchema.methods.generateAuthToken = async function () {
+//     const user = this
+//     const token = jwt.sign({_id: user._id.toString() }, config.jwtSecret)
+//     user.tokens = user.tokens.concat({ token })
+//     await user.save()    
+//     return token
+// }
 
 UserSchema
     .virtual('password')

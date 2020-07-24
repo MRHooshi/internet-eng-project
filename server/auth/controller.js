@@ -9,22 +9,22 @@ const login = async (req, res) => {
             "username": req.body.username
         })
         if (!user)
-            return res.status('401').json({
+            return res.status(401).json({
                 error: "User not found"
             })
 
         if (!user.authenticate(req.body.password)) {
-            return res.status('401').send({
+            return res.status(401).json({
                 error: "Username and password don't match."
             })
         }
 
-        const token = jwt.sign({
-            _id: user._id
-        }, config.jwtSecret, { expiresIn: 180000 })
+        // const token = jwt.sign({
+        //     _id: user._id
+        // }, config.jwtSecret, { expiresIn: 180000 })
         
-        return res.json({
-            token: token,
+        return res.status(200).json({
+            token: user.tokens[0].token ,
             user: {
                 _id: user._id,
                 name: user.name,
@@ -35,7 +35,7 @@ const login = async (req, res) => {
 
     } catch (err) {
 
-        return res.status('401').json({
+        return res.status(401).json({
             error: "Could not login"
         })
 
