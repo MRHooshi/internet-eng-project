@@ -19,14 +19,22 @@ const admin = {
     }]
 }
 
-beforeEach(async () => {
+beforeAll(async () => {
     await User.deleteMany()
-    await Form.deleteMany()
     await new User(admin).save()
+
+})
+
+beforeEach(async () => {
+    await Form.deleteMany()
 })
 
 afterEach(async () => {
-    Form.deleteMany()
+    await Form.deleteMany()
+})
+
+afterAll(async() =>{
+    await User.deleteMany()
 })
 
 

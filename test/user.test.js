@@ -4,7 +4,11 @@ const User = require('../server/user/model')
 
 
 
-beforeAll(async () => {
+beforeEach(async () => {
+    await User.deleteMany()
+})
+
+afterAll(async () => {
     await User.deleteMany()
 })
 

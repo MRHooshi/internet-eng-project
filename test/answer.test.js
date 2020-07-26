@@ -64,8 +64,8 @@ const form = {
 const userId = new mongoose.Types.ObjectId()
 const user = {
     _id : userId,
-    name: "amir form",
-    username: "amir_form",
+    name: "amir formAnswer",
+    username: "amir_formAnswer",
     password: "123456789",
     type: "FieldAgent",
     tokens : [{
@@ -73,16 +73,25 @@ const user = {
     }]
 }
 
-beforeEach(async () => {
+beforeAll(async () => {
     await User.deleteMany()
     await Form.deleteMany()
     await new User(user).save()
     await new Form(form).save()
 })
 
-// afterEach(async () => {
-//     Form.deleteMany()
-// })
+beforeEach(async () => {
+    await FormAnswer.deleteMany()
+})
+
+afterEach(async () => {
+    FormAnswer.deleteMany()
+})
+
+afterAll( async () => {
+    await User.deleteMany()
+    await Form.deleteMany()
+})
 
 
 test('should failed to create new formAnswer' , async  () => {

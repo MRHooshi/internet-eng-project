@@ -19,15 +19,21 @@ const admin = {
     }]
 }
 
-beforeEach(async () => {
+beforeAll(async () =>{
     await User.deleteMany()
-    await Area.deleteMany()
     await new User(admin).save()
+})
+
+beforeEach(async () => {
+    await Area.deleteMany()
+})
+
+afterEach(async () => {
+    await Area.deleteMany()
 })
 
 afterAll(async () => {
     await User.deleteMany()
-    Area.deleteMany()
 })
 
 test('should failed to create new area' , async  () => {

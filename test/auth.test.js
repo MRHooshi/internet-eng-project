@@ -23,9 +23,9 @@ beforeAll(async () => {
     await new User(admin).save()
 })
 
-// afterAll( async() =>{
-//     await User.deleteMany()
-// })
+afterAll( async() =>{
+    await User.deleteMany()
+})
 
 test('should login successfully' , async () => {
     await request(app)
