@@ -54,7 +54,7 @@ const get = async (req , res) => {
 const list = async (req , res) => {
     try {
         let forms = await Form.find().select('_id title')
-        res.json(forms)
+        res.status(200).json(forms)
 
     } catch (err) {
         return res.status(400).json({

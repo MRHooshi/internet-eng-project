@@ -1,10 +1,10 @@
 const request = require('supertest')
-const app = require('../server/express')
-const Form = require('../server/form/model')
+const app = require('../../server/express')
+const Form = require('../../server/form/model')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
-const User = require('../server/user/model')
-const config = require('../config/config')
+const User = require('../../server/user/model')
+const config = require('../../config/config')
 
 
 const adminId = new mongoose.Types.ObjectId()
@@ -38,7 +38,7 @@ afterAll(async() =>{
 })
 
 
-test('should failed to create new area' , async  () => {
+test('should create new form' , async  () => {
     await request(app)
     .post('/forms')
     .set('Authorization', `Bearer ${admin.tokens[0].token}`)
