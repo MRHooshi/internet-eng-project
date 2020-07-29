@@ -18,7 +18,7 @@ const create = async (req, res) => {
 const list = async (req, res) => {
     try {
         let areas = await Area.find().select('name properties geometry')
-        res.json(areas)
+        res.status(200).json(areas)
     } 
     catch (err) {
         return res.status(400).json({

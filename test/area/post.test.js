@@ -1,10 +1,10 @@
 const request = require('supertest')
-const app = require('../server/express')
-const Area = require('../server/area/model')
+const app = require('../../server/express')
+const Area = require('../../server/area/model')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
-const User = require('../server/user/model')
-const config = require('../config/config')
+const User = require('../../server/user/model')
+const config = require('../../config/config')
 
 
 const adminId = new mongoose.Types.ObjectId()
@@ -45,6 +45,7 @@ test('should failed to create new area' , async  () => {
     })
     .expect(400)
 })
+
 
 test('should create new area' , async  () => {
     await request(app)
