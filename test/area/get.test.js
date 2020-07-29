@@ -65,7 +65,7 @@ test('should get list of template forms' , async () =>{
 
 test('should get an area by name' , async () =>{
     const response  = await request(app)
-    .get('/areas/tehran')
+    .get('/areas')
     .set('Authorization', `Bearer ${admin.tokens[0].token}`)
     .expect(200)
     expect(response.body[0].name).toBe('tehran')
