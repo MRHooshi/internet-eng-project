@@ -38,7 +38,7 @@ If you need to update `npm`, you can make it using `npm`
 ## Install
 
     $ git clone https://github.com/MRHooshi/internet-eng-project.git
-    $ cd PROJECT_TITLE
+    $ cd internet-eng-project
     $ npm installl
 
 ## Configure app
